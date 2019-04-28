@@ -38,6 +38,7 @@ client.on('message' , message=>{
         number = 0;
         member = [];
         memberID = [];
+        message.channel.send("Squad dismissed");
     }
 })
 
