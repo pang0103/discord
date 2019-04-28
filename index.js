@@ -4,41 +4,54 @@ const Disocrd = require('discord.js');
 const { prefix, token} = require('./config.json');
 const client = new Disocrd.Client();
 
-var number = 0;
-var member = [];
-var memberID = [];
+let csTeam  ={
+    memberID: [],
+    memberName: [],
+    number: 0,
+    joinTeam: function(playerID, playerName){
+        this.memberID.push(playerID);
+        this.memberName.push(playerName);
+        this.number++;
+    },
+};
 
 client.once('ready', ()=>{
     console.log('ready')
 })
 
 client.on('message' , message=>{
-    if(message.content.startsWith(`${prefix}cs`)){
-
-        if(memberID.includes(`${message.member.id}`)){
+    if(message.content.startsWith(`${prefix}cs`||`${prefix}CS`)){
+        //check if the user inside a squad
+        if(csTeam.memberID.includes(`${message.member.id}`)){
             message.channel.send(`${message.member.displayName}`+ " in squad already");
-
-        }else if(number == 5){
-            message.channel.send("The squad is full")
-
+        }else if(csTeam.number == 5){
+            message.channel.send("```The Squad is FULL, Ready to GO```");
         }else{
-            memberID[number] = message.member.id;
-            member[number] = message.member.displayName;
-            number = number + 1;
+            //Player join the team
+            var ID, NAME;
+            ID = message.member.id;
+            NAME = message.member.displayName;
+            csTeam.joinTeam(ID, NAME);
 
-            var announcement = "CS CALL\n\n";
-            for(var i = 0; i< 5 ; i++){
-                announcement += `${i+1}. ${member[i]}\n`;
+            var announcement = "CS 召集 \n\n```";
+            for(var i=0 ; i< 5 ; i++){
+                var name;
+                if(csTeam.memberName[i]==null){
+                    name="";
+                }else{
+                    name = csTeam.memberName[i];
+                }
+                announcement += `${i+1}.  ${name}\n\n`;
             }
-            message.channel.send(announcement);
+            if(csTeam.number == 5 ){
+                announcement += "開GAME啦屌你老母";
+            }
+            message.channel.send(announcement+"```");
         }
     }
 
-    if(message.content.startsWith(`${prefix}dismiss`)){
-        number = 0;
-        member = [];
-        memberID = [];
-        message.channel.send("Squad dismissed");
+    if(message.content.startsWith(`${prefix}lol`||`${prefix}LOL`)){
+        //lol
     }
 })
 
