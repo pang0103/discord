@@ -13,6 +13,11 @@ let csTeam  ={
         this.memberName.push(playerName);
         this.number++;
     },
+    dismissTeam: function(){
+        this.memberID = [];
+        this.memberName = [];
+        this.number = 0;
+    }
 };
 
 client.once('ready', ()=>{
@@ -48,6 +53,10 @@ client.on('message' , message=>{
             }
             message.channel.send(announcement+"```");
         }
+    }
+
+    if(message.content.startsWith(`${prefix}dismiss`)){
+        csTeam.dismissTeam();
     }
 
     if(message.content.startsWith(`${prefix}lol`||`${prefix}LOL`)){
