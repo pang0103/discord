@@ -12,6 +12,10 @@ let csTeam  ={
         this.memberID.push(playerID);
         this.memberName.push(playerName);
         this.number++;
+        if(this.number === 1){
+            console.log(this.memberName[0]);
+            this.memberName[0] = this.memberName[0].concat("      - 召集人");
+        }
     },
     dismissTeam: function(){
         this.memberID = [];
