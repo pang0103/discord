@@ -14,7 +14,7 @@ let csTeam  ={
         this.number++;
         if(this.number === 1){
             console.log(this.memberName[0]);
-            this.memberName[0] = this.memberName[0].concat("      - 召集人");
+            this.memberName[0] = this.memberName[0].concat("      - Captain");
         }
     },
     dismissTeam: function(){
@@ -42,7 +42,7 @@ client.on('message' , message=>{
             NAME = message.member.displayName;
             csTeam.joinTeam(ID, NAME);
 
-            var announcement = "CS 召集 \n\n```";
+            var announcement = "CS 召集                     :gun::gun::gun: \n\n```";
             for(var i=0 ; i< 5 ; i++){
                 var name;
                 if(csTeam.memberName[i]==null){
