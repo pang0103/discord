@@ -43,7 +43,7 @@ client.on('message' , message=>{
     if(message.content.startsWith(`${prefix}cs`)){
         //check if the user inside a squad
         if(csTeam.memberID.includes(`${message.member.id}`)){
-            message.channel.send(`${message.member.displayName}`+ " in squad already");
+            message.channel.send(`${message.member}`+ " in squad already");
         }else if(csTeam.number == 5){
             message.channel.send("```The Squad is FULL, Ready to GO```");
         }else{
@@ -58,8 +58,14 @@ client.on('message' , message=>{
     }
 
     if(message.content.startsWith(`${prefix}dismiss`)){
-        csTeam.dismissTeam();
-        message.channel.send("```Squad dismissed```");
+        if(csTeam.memberID.includes(`${message.member.id}`)){
+            if(csTeam.memberID[0] == `${message.member.id}`){
+                csTeam.dismissTeam();
+                message.channel.send("```Squad dismissed```");
+            }else{
+                message.channel.send("```Only Captain are allowed to dismiss the squad```");
+            }
+        }
     }
 
     if(message.content.startsWith(`${prefix}quit`)){
@@ -80,16 +86,19 @@ client.on('message' , message=>{
         }
     }
 
-    
-
-
     if(message.content == (`${prefix}help`)){
         var helpMsg;
         helpMsg = "```1. !cs\t\t\t - build cs squad\n";
         helpMsg += "2. !status\t\t\t - check squad status\n";
         helpMsg += "3. !quit\t\t\t - quit squad\n";
-        helpMsg += "4. !dismiss\t\t\t - dismiss the squad\n```";
+        helpMsg += "4. !dismiss\t\t\t - dismiss the squad\n";
+        helpMsg += "5. !lol\t\t\t - want to play lol\n"
+        helpMsg += "```";
         message.channel.send(helpMsg);
+    }
+
+    if(message.content == (`${prefix}lol`)){
+        message.channel.send(`${message.member} 好想打 LOL , 有冇人陪佢 :sob:`);
     }
 })
 
