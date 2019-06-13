@@ -63,7 +63,7 @@ client.on('message' , message=>{
                 csTeam.dismissTeam();
                 message.channel.send("```Squad dismissed```");
             }else{
-                message.channel.send("```Only Captain are allowed to dismiss the squad```");
+                message.channel.send("```Only Captain is allowed to dismiss the squad```");
             }
         }
     }
@@ -95,6 +95,10 @@ client.on('message' , message=>{
         helpMsg += "5. !lol\t\t\t - want to play lol\n"
         helpMsg += "```";
         message.channel.send(helpMsg);
+    }
+
+    if(message.content.startsWith(`${prefix}overwatch`)){
+        message.channel.send(`${message.member} 好後悔買左Overwatch :sob: 有冇人玩下 :sob:`);
     }
 
     if(message.content == (`${prefix}lol`)){
